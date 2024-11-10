@@ -1,1 +1,1 @@
-Random code i write while learning.
+Random code I write while learning.
