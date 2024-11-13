@@ -2,10 +2,10 @@ import java.util.StringJoiner;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
-public class MergeSortRecursive extends RecursiveAction {
+public class MergeSortParallel extends RecursiveAction {
     public static void main(String... args) {
         int[] arr = new int[]{90,1,2,4,7,4,2,87};
-        MergeSortRecursive mergeSort = new MergeSortRecursive(
+        MergeSortParallel mergeSort = new MergeSortParallel(
                 0,
                 arr.length - 1,
                 arr
@@ -26,7 +26,7 @@ public class MergeSortRecursive extends RecursiveAction {
     private int[] input;
     private int[] output;
 
-    public MergeSortRecursive(int left, int right, int[] input) {
+    public MergeSortParallel(int left, int right, int[] input) {
         this.left = left;
         this.right = right;
         this.input = input;
@@ -42,8 +42,8 @@ public class MergeSortRecursive extends RecursiveAction {
             computeDirect(left, right);
         } else {
             int mid = left + (right - left) / 2;
-            MergeSortRecursive task1 = new MergeSortRecursive(left, mid, input);
-            MergeSortRecursive task2 = new MergeSortRecursive(mid + 1, right, input);
+            MergeSortParallel task1 = new MergeSortParallel(left, mid, input);
+            MergeSortParallel task2 = new MergeSortParallel(mid + 1, right, input);
             invokeAll(task1, task2);
             output = merge(task1.result(), task2.result());
         }
